@@ -19,6 +19,7 @@ function compareFixtures(t, name, msg, opts, postcssOpts) {
 }
 
 test("hex", function(t) {
-  compareFixtures(t, "hex", "should transform rgba")
+  compareFixtures(t, "rgba-fallback", "should transform rgba")
+  compareFixtures(t, "no-rgba-fallback", "should not transform rgba")
   t.end()
 })

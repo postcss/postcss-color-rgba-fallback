@@ -1,0 +1,7 @@
+.foo {
+  background: #000;
+  background: rgba(153, 221, 153, 0.8);
+  font-size:1px;
+  color: #ffffff;
+  color: rgba(0, 0, 0, .4);
+}

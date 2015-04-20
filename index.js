@@ -12,10 +12,18 @@ var RGBA = /rgba\s*\((\s*(\d+)\s*(,)\s*){3}(\s*(\d?\.\d+)\s*)\)$/i
  */
 module.exports = function plugin() {
   return function(style) {
-    style.eachDecl(function transformDecl(decl) {
+    style.eachDecl(function(decl) {
       if (!decl.value || decl.value.indexOf("rgba") === -1) {
         return
       }
+
+      // if previous prop equals current prop
+      // if previous prop has hexadecimal value and current prop has rgba() value
+      // no need fallback
+      if (decl.prev() && decl.prev().prop === decl.prop && decl.prop.indexOf("rgba") === decl.prev().prop.indexOf("#")) {
+        return
+      }
+
       var value = transformRgba(decl.value)
       if (value) {
         decl.cloneBefore({value: value});
@@ -32,10 +40,10 @@ module.exports = function plugin() {
  */
 function transformRgba(string) {
   var value = RGBA.exec(string)
-
   if (!value) {
     return
   }
+
   var rgb = colorString.getRgb(value[0])
   var hex = colorString.hexString(rgb)
   hex = string.replace(RGBA, hex)
