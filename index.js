@@ -20,7 +20,7 @@ module.exports = function plugin() {
       // if previous prop equals current prop
       // if previous prop has hexadecimal value and current prop has rgba() value
       // no need fallback
-      if (decl.prev() && decl.prev().prop === decl.prop && decl.prop.indexOf("rgba") === decl.prev().prop.indexOf("#")) {
+      if (decl.prev() && decl.prev().prop === decl.prop && decl.value.indexOf("rgba") === decl.prev().value.indexOf("#")) {
         return
       }
 

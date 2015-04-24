@@ -1,3 +1,7 @@
+# 1.1.1 - 2015-04-24
+
+Fixed: detect if there is already a fallback.
+
 # 1.1.0 - 2015-04-20
 
 Added: detect if there is already a fallback.
