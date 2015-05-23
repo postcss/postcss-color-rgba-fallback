@@ -1,3 +1,7 @@
+# 1.2.0 - 2015-05-23
+
+Added: use PostCSS 4.1 API
+
 # 1.1.1 - 2015-04-24
 
 Fixed: detect if there is already a fallback.

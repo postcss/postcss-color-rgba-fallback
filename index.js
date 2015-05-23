@@ -1,6 +1,7 @@
 /**
  * Module dependencies.
  */
+var postcss = require("postcss");
 var colorString = require("color-string");
 /**
  * Constantes
@@ -10,7 +11,7 @@ var RGBA = /rgba\s*\((\s*(\d+)\s*(,)\s*){3}(\s*(\d?\.\d+)\s*)\)$/i
 /**
  * PostCSS plugin to transform rgba() to hexadecimal
  */
-module.exports = function plugin() {
+module.exports = postcss.plugin("postcss-color-rgba-fallback", function() {
   return function(style) {
     style.eachDecl(function(decl) {
       if (!decl.value || decl.value.indexOf("rgba") === -1) {
@@ -30,7 +31,7 @@ module.exports = function plugin() {
       }
     })
   }
-}
+});
 
 /**
  * transform rgba() to hexadecimal.
