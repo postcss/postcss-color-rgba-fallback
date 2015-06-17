@@ -14,7 +14,7 @@ var RGBA = /rgba\s*\((\s*(\d+)\s*(,)\s*){3}(\s*(\d?\.\d+)\s*)\)$/i
 module.exports = postcss.plugin("postcss-color-rgba-fallback", function() {
   return function(style) {
     style.eachDecl(function(decl) {
-      if (!decl.value || decl.value.indexOf("rgba") === -1) {
+      if (typeof decl.value !== 'undefined' || decl.value.indexOf("rgba") === -1) {
         return
       }
 
