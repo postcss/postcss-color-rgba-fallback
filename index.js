@@ -3,6 +3,7 @@
  */
 var postcss = require("postcss")
 var colorString = require("color-string")
+
 /**
  * Constantes
  */
@@ -34,12 +35,10 @@ module.exports = postcss.plugin("postcss-color-rgba-fallback", function(options)
       }
 
       // if previous prop equals current prop
-      // if previous prop has hexadecimal value and current prop has rgba() value
       // no need fallback
       if (
         decl.prev() &&
-        decl.prev().prop === decl.prop &&
-        decl.value.indexOf("rgba") === decl.prev().value.indexOf("#")
+        decl.prev().prop === decl.prop
       ) {
         return
       }
