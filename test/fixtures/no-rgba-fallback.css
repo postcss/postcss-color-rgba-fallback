@@ -4,4 +4,17 @@
   font-size:1px;
   color: #ffffff;
   color: rgba(0, 0, 0, .4);
+  box-shadow: rgba(122,189,0,.4);
+}
+foo {
+    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.bar {
+    background-color: orange;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+bar {
+    background-color: rgb(128, 128, 128);
+    background-color: rgba(0, 0, 0, 0.5);
 }

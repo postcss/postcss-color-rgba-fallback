@@ -47,6 +47,15 @@ body {
 }
 ```
 
+## Node.js options
+
+postcss-color-rgba-fallback accepts option
+
+##### `properties` (default:  - `> ["background-color","background","color","border","border-color","outline","outline-color]`)
+
+Allows you to specify your whitelist of properties.
+**This option enables adding a fallback for one or a properties list**
+
 Checkout [tests](test) for more examples.
 
 ---

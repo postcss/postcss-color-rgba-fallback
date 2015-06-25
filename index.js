@@ -1,8 +1,9 @@
 /**
  * Module dependencies.
  */
-var postcss = require("postcss");
-var colorString = require("color-string");
+var postcss = require("postcss")
+var colorString = require("color-string")
+
 /**
  * Constantes
  */
@@ -11,23 +12,40 @@ var RGBA = /rgba\s*\((\s*(\d+)\s*(,)\s*){3}(\s*(\d?\.\d+)\s*)\)$/i
 /**
  * PostCSS plugin to transform rgba() to hexadecimal
  */
-module.exports = postcss.plugin("postcss-color-rgba-fallback", function() {
+module.exports = postcss.plugin("postcss-color-rgba-fallback", function(options) {
+  options = options || {}
+
+  var properties = options.properties || [
+    "background-color",
+    "background",
+    "color",
+    "border",
+    "border-color",
+    "outline",
+    "outline-color"
+  ]
+
   return function(style) {
     style.eachDecl(function(decl) {
-      if (!decl.value || decl.value.indexOf("rgba") === -1) {
+      if (!decl.value ||
+          decl.value.indexOf("rgba") === -1 ||
+          properties.indexOf(decl.prop) === -1
+      ) {
         return
       }
 
       // if previous prop equals current prop
-      // if previous prop has hexadecimal value and current prop has rgba() value
       // no need fallback
-      if (decl.prev() && decl.prev().prop === decl.prop && decl.value.indexOf("rgba") === decl.prev().value.indexOf("#")) {
+      if (
+        decl.prev() &&
+        decl.prev().prop === decl.prop
+      ) {
         return
       }
 
       var value = transformRgba(decl.value)
       if (value) {
-        decl.cloneBefore({value: value});
+        decl.cloneBefore({value: value})
       }
     })
   }
