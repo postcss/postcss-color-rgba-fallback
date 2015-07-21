@@ -1,3 +1,7 @@
+# 1.3.1 - 2015-07-21
+
+- Added eslint
+
 # 1.3.0 - 2015-06-24
 
 - Added a whitelist for properties which must be managed with a fallback
