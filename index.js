@@ -12,7 +12,8 @@ var RGBA = /rgba\s*\((\s*(\d+)\s*(,)\s*){3}(\s*(\d?\.\d+)\s*)\)$/i
 /**
  * PostCSS plugin to transform rgba() to hexadecimal
  */
-module.exports = postcss.plugin("postcss-color-rgba-fallback", function(options) {
+module.exports = postcss.plugin("postcss-color-rgba-fallback",
+function(options) {
   options = options || {}
 
   var properties = options.properties || [
@@ -22,7 +23,7 @@ module.exports = postcss.plugin("postcss-color-rgba-fallback", function(options)
     "border",
     "border-color",
     "outline",
-    "outline-color"
+    "outline-color",
   ]
 
   return function(style) {
@@ -49,7 +50,7 @@ module.exports = postcss.plugin("postcss-color-rgba-fallback", function(options)
       }
     })
   }
-});
+})
 
 /**
  * transform rgba() to hexadecimal.
