@@ -22,13 +22,13 @@
   ],
   "dependencies": {
     "color-string": "^0.3.0",
-    "postcss": "^4.1.11"
+    "postcss": "^4.1.16",
   },
   "devDependencies": {
     "css-whitespace": "^1.1.0",
     "jscs": "^1.6.2",
     "jshint": "^2.5.6",
-    "tape": "^3.0.0"
+    "tape": "^4.0.1"    
   },
   "scripts": {
     "jscs": "jscs .",
