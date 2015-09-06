@@ -1,3 +1,8 @@
+# 2.0.0 - 2015-09-06
+
+- Removed: compatibility with postcss v4.x
+- Added: compatibility with postcss v5.x
+
 # 1.3.1 - 2015-07-21
 
 - Added: minor code changes by switching from jshint to eslint
