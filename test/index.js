@@ -28,8 +28,8 @@ test("hex", function(t) {
   compareFixtures(t, "rgba-double-fallback", "should transform rgba")
   compareFixtures(t, "no-rgba-fallback", "should not transform rgba")
   compareFixtures(t, "rgba-fallback-option", "should transform rgba in shadow",
-  {
-    properties:["box-shadow"],
-  })
+    {
+      properties:["box-shadow"],
+    })
   t.end()
 })
