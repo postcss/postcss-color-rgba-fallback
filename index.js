@@ -27,7 +27,7 @@ function(options) {
   ]
 
   return function(style) {
-    style.eachDecl(function(decl) {
+    style.walkDecls(function(decl) {
       if (!decl.value ||
           decl.value.indexOf("rgba") === -1 ||
           properties.indexOf(decl.prop) === -1

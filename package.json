@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "color-string": "^0.3.0",
-    "postcss": "^4.1.16"
+    "postcss": "^5.0.0"
   },
   "devDependencies": {
     "css-whitespace": "^1.1.0",
