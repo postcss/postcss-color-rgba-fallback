@@ -49,7 +49,7 @@ body {
 
 ## Node.js options
 
-postcss-color-rgba-fallback accepts option
+postcss-color-rgba-fallback accepts options
 
 ##### `properties`
 default: `
@@ -64,6 +64,21 @@ default: `
 
 Allows you to specify your whitelist of properties.
 **This option enables adding a fallback for one or a properties list**
+
+
+##### `oldie`
+default: `false`
+
+Whether to add old IE proprietary filter fallback.
+
+
+##### `oldieProperties`
+default: `
+[ "background-color",
+  "background" ]`
+
+Allows you to specify your whitelist of properties eligible for old IE fallback.
+
 
 Checkout [tests](test) for more examples.
 
