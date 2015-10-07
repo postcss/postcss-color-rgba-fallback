@@ -1,3 +1,13 @@
+# 3.0.0 - 2015-10-07
+
+- Added: postcss-value-parser v3.0.2
+- Added: `method` option to determine how the filter is included
+- Added: `filter` option to use the old Internet Explorer proprietary filter
+- Updated: Rewrite of plugin following latest plugin standards
+- Updated: Many more properties with rgba values are converted
+- Updated: Hexadecimal values are lowercase
+- Updated: Tests and documentation
+
 # 2.0.0 - 2015-09-06
 
 - Removed: compatibility with postcss v4.x

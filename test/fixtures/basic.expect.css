@@ -1,0 +1,50 @@
+.color-1 {
+	color: #ffffff;
+}
+
+.background-1 {
+	background: none;
+}
+
+.background-2 {
+	background: rgb(255, 0, 0);
+}
+
+.background-3 {
+	background: #ff0000;
+}
+
+.background-4 {
+	background: #ff0000;
+}
+
+.background-5 {
+	background-color: #ff0000;
+}
+
+.background-6 {
+	background: #ff0000;
+	background: rgba(255, 0, 0, 1);
+}
+
+.border-1 {
+	border: 1px solid #ff0000;
+}
+
+.border-2 {
+	border-top: 1px solid #0000ff;
+	border-right: 1px solid #00ff00;
+	border-bottom: 1px solid #ff0000;
+	border-left: 1px solid #ffff00;
+}
+
+.border-3 {
+	border-top-color: #0000ff;
+	border-right-color: #00ff00;
+	border-bottom-color: #ff0000;
+	border-left-color: #ffff00;
+}
+
+.box-shadow-1 {
+	box-shadow: rgba(0, 0, 0, .5);
+}

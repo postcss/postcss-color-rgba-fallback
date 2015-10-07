@@ -1,72 +1,53 @@
-/**
- * Module dependencies.
- */
-var postcss = require("postcss")
-var colorString = require("color-string")
+var parser  = require('postcss-value-parser');
+var postcss = require('postcss');
 
-/**
- * Constantes
- */
-var RGBA = /rgba\s*\((\s*(\d+)\s*(,)\s*){3}(\s*(\d?\.\d+)\s*)\)$/i
+module.exports = postcss.plugin('postcss-color-rgba-fallback', function (opts) {
+	var method = opts && /^(copy|warn)$/.test(opts.method) ? opts.method : 'replace';
+	var props  = opts && opts.properties || ['background', 'background-color', 'color', 'border', 'border-bottom', 'border-bottom-color', 'border-color', 'border-left', 'border-left-color', 'border-right', 'border-right-color', 'border-top', 'border-top-color', 'outline', 'outline-color'];
+	var filter = opts && opts.filter;
 
-/**
- * PostCSS plugin to transform rgba() to hexadecimal
- */
-module.exports = postcss.plugin("postcss-color-rgba-fallback",
-function(options) {
-  options = options || {}
+	return function (css, result) {
+		css.walkRules(function (rule) {
+			var cache = {};
 
-  var properties = options.properties || [
-    "background-color",
-    "background",
-    "color",
-    "border",
-    "border-color",
-    "outline",
-    "outline-color",
-  ]
+			rule.nodes.filter(function (decl) {
+				// assure property is cached
+				cache[decl.prop] = cache[decl.prop] || 0;
 
-  return function(style) {
-    style.walkDecls(function(decl) {
-      if (!decl.value ||
-          decl.value.indexOf("rgba") === -1 ||
-          properties.indexOf(decl.prop) === -1
-      ) {
-        return
-      }
+				// count each time property is cached
+				++cache[decl.prop];
 
-      // if previous prop equals current prop
-      // no need fallback
-      if (
-        decl.prev() &&
-        decl.prev().prop === decl.prop
-      ) {
-        return
-      }
+				// keep valid, non-repeated, rgba-containing properties
+				return cache[decl.prop] === 1 && props.indexOf(decl.prop) !== -1 && /rgba/i.test(decl.value);
+			}).filter(function (decl) {
+				// keep uncaught non-repeated properties
+				return cache[decl.prop] === 1;
+			}).forEach(function (decl) {
+				// transpile rgba values
+				var value = parser(decl.value).walk(function (node) {
+					if (node.type === 'function' && node.value === 'rgba') {
+						var rgba = node.nodes.filter(function (word) {
+							return word.type === 'word';
+						}).map(function (word, index) {
+							return (0 + Math.round(word.value * (index > 2 ? 255 : 1)).toString(16)).slice(-2);
+						});
 
-      var value = transformRgba(decl.value)
-      if (value) {
-        decl.cloneBefore({value: value})
-      }
-    })
-  }
-})
+						node.value = filter && /^background/i.test(decl.prop) ?
+						'progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=\'#@\',endColorstr=\'#@\')'.replace(/@/g, rgba.slice(-1).concat(rgba.slice(0, -1)).join('')) :
+						'#' + rgba.slice(0, 3).join('');
 
-/**
- * transform rgba() to hexadecimal.
- *
- * @param  {String} string declaration value
- * @return {String}        converted declaration value to hexadecimal
- */
-function transformRgba(string) {
-  var value = RGBA.exec(string)
-  if (!value) {
-    return
-  }
+						node.type  = 'word';
+					}
+				});
 
-  var rgb = colorString.getRgb(value[0])
-  var hex = colorString.hexString(rgb)
-  hex = string.replace(RGBA, hex)
+				if (value !== decl.value) {
+					if (method === 'warn') result.warn('rgba() detected', { node: decl });
+					else if (method === 'copy') decl = decl.cloneBefore({ value: value });
+					else decl.value = value;
 
-  return (hex)
-}
+					if (filter && method !== 'warn' && /^background/.test(decl.prop)) decl.prop = 'filter';
+				}
+			});
+		});
+	};
+});

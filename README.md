@@ -1,83 +1,187 @@
-# postcss-color-rgba-fallback [![Travis Build Status](https://travis-ci.org/postcss/postcss-color-rgba-fallback.svg)](https://travis-ci.org/postcss/postcss-color-rgba-fallback)
+# PostCSS RGBA Fallback [![Build Status][ci-img]][ci]
 
-> [PostCSS](https://github.com/postcss/postcss) plugin to transform rgba() to hexadecimal.
+<img align="right" width="135" height="95" src="http://postcss.github.io/postcss/logo-leftp.png" title="Philosopher’s stone, logo of PostCSS">
 
-## Installation
+[PostCSS RGBA Fallback] is a [PostCSS] plugin that transforms rgba() values into hexadecimals. This can be useful for outputting CSS for old browsers like Internet Explorer 8.
 
-```bash
-$ npm install postcss-color-rgba-fallback
+```css
+/* before */
+
+.hero {
+    background: rgba(153, 221, 153, 0.8);
+    border: solid 1px rgba(100,102,103,.3);
+}
+
+/* after */
+
+.hero {
+    background: #99dd99;
+    border: solid 1px #646667;
+}
 ```
 
 ## Usage
 
+Follow these steps to use [PostCSS RGBA Fallback].
+
+Add [PostCSS RGBA Fallback] to your build tool:
+
+```bash
+npm install postcss-color-rgba-fallback --save-dev
+```
+
+#### Node
+
 ```js
-// dependencies
-var fs = require("fs")
-var postcss = require("postcss")
-var colorRgbaFallback = require("postcss-color-rgba-fallback")
-
-// css to be processed
-var css = fs.readFileSync("input.css", "utf8")
-
-// process css
-var output = postcss()
-  .use(colorRgbaFallback())
-  .process(css)
-  .css
+require('postcss-color-rgba-fallback')({ /* options */ }).process(YOUR_CSS);
 ```
 
-Using this `input.css`:
+#### PostCSS
 
+Add [PostCSS] to your build tool:
+
+```bash
+npm install postcss --save-dev
+```
+
+Load [PostCSS RGBA Fallback] as a PostCSS plugin:
+
+```js
+postcss([
+    require('postcss-color-rgba-fallback')({ /* options */ })
+]);
+```
+
+#### Gulp
+
+Add [Gulp PostCSS] to your build tool:
+
+```bash
+npm install gulp-postcss --save-dev
+```
+
+Enable [PostCSS RGBA Fallback] within your Gulpfile:
+
+```js
+var postcss = require('gulp-postcss');
+
+gulp.task('css', function () {
+    return gulp.src('./css/src/*.css').pipe(
+        postcss([
+            require('postcss-color-rgba-fallback')({ /* options */ })
+        ])
+    ).pipe(
+        gulp.dest('./css')
+    );
+});
+```
+
+#### Grunt
+
+Add [Grunt PostCSS] to your build tool:
+
+```bash
+npm install grunt-postcss --save-dev
+```
+
+Enable [PostCSS RGBA Fallback] within your Gruntfile:
+
+```js
+grunt.loadNpmTasks('grunt-postcss');
+
+grunt.initConfig({
+    postcss: {
+        options: {
+            processors: [
+                require('postcss-color-rgba-fallback')({ /* options */ })
+            ]
+        },
+        dist: {
+            src: 'css/*.css'
+        }
+    }
+});
+```
+
+### Options
+
+#### `properties`
+
+Type: `Array`  
+Default: `['background', 'background-color', 'color', 'border', 'border-bottom', 'border-bottom-color', 'border-color', 'border-left', 'border-left-color', 'border-right', 'border-right-color', 'border-top', 'border-top-color', 'outline', 'outline-color']`
+
+Specifies the properties which will convert rgba values.
+
+#### `method`
+
+Type: `String`  
+Default: `'replace'`
+
+##### `replace`
+Replace any rgba values with hexadecimal values.
 ```css
-body {
-  background: rgba(153, 221, 153, 0.8);
-  border: solid 1px rgba(100,102,103,.3);
+/* before */
+
+:root {
+    color: red;
 }
 
-```
+/* after */
 
-you will get:
-
-```css
-body {
-  background: #99DD99;
-  background: rgba(153, 221, 153, 0.8);
-  border: solid 1px #646667;
-  border: solid 1px rgba(100,102,103,.3);
+html {
+    color: red;
 }
 ```
 
-## Node.js options
+##### `copy`
+Copy any rgba values to a cloned property as hexadecimal.
+```css
+/* before */
 
-postcss-color-rgba-fallback accepts option
+:root {
+    color: red;
+}
 
-##### `properties`
-default: `
-[ "background-color",
-  "background",
-  "color",
-  "border",
-  "border-color",
-  "outline",
-  "outline-color ]
-`
+/* after */
 
-Allows you to specify your whitelist of properties.
-**This option enables adding a fallback for one or a properties list**
+html {
+    color: red;
+}
 
-Checkout [tests](test) for more examples.
+:root {
+    color: red;
+}
+```
 
----
+##### `warn`
+Warn when an rgba value is used.
 
-## Contributing
+#### `filter`
 
-Work on a branch, install dev-dependencies, respect coding style & run tests before submitting a bug fix or a feature.
+Type: `Boolean`  
+Default: `false`
 
-    $ git clone https://github.com/postcss/postcss-color-rgba-fallback.git
-    $ git checkout -b patch-1
-    $ npm install
-    $ npm test
+Specifies the background rgba values will use the old Internet Explorer proprietary filter.
 
-## [Changelog](CHANGELOG.md)
+```css
+/* before */
 
-## [License](LICENSE)
+.background {
+    background-color: rgba(255, 0, 0, .5);
+}
+
+/* after */
+
+.background {
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80ff0000',endColorstr='#80ff0000');
+}
+```
+
+The `filter` option will be ignored if the `method` option is set as `warn`.
+
+[ci]: https://travis-ci.org/postcss/postcss-color-rgba-fallback
+[ci-img]: https://travis-ci.org/postcss/postcss-color-rgba-fallback.svg
+[Gulp PostCSS]: https://github.com/postcss/gulp-postcss
+[Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
+[PostCSS]: https://github.com/postcss/postcss
+[PostCSS RGBA Fallback]: https://github.com/postcss/postcss-color-rgba-fallback
