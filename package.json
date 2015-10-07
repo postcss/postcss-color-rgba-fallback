@@ -21,8 +21,9 @@
     "index.js"
   ],
   "dependencies": {
-    "color-string": "^0.3.0",
-    "postcss": "^5.0.0"
+    "postcss": "^5.0.0",
+    "postcss-value-parser": "^3.0.2",
+    "rgb-hex": "^1.0.0"
   },
   "devDependencies": {
     "css-whitespace": "^1.1.0",

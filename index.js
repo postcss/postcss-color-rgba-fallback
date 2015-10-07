@@ -2,12 +2,8 @@
  * Module dependencies.
  */
 var postcss = require("postcss")
-var colorString = require("color-string")
-
-/**
- * Constantes
- */
-var RGBA = /rgba\s*\((\s*(\d+)\s*(,)\s*){3}(\s*(\d?\.\d+)\s*)\)$/i
+var valueParser = require("postcss-value-parser")
+var rgbToHex = require("rgb-hex")
 
 /**
  * PostCSS plugin to transform rgba() to hexadecimal
@@ -45,7 +41,7 @@ function(options) {
       }
 
       var value = transformRgba(decl.value)
-      if (value) {
+      if (value !== decl.value) {
         decl.cloneBefore({value: value})
       }
     })
@@ -59,14 +55,16 @@ function(options) {
  * @return {String}        converted declaration value to hexadecimal
  */
 function transformRgba(string) {
-  var value = RGBA.exec(string)
-  if (!value) {
-    return
-  }
-
-  var rgb = colorString.getRgb(value[0])
-  var hex = colorString.hexString(rgb)
-  hex = string.replace(RGBA, hex)
-
-  return (hex)
+  return valueParser(string).walk(function(node) {
+    var nodes = node.nodes
+    if (node.type === "function" && node.value === "rgba") {
+      node.type = "word"
+      node.value = "#" + rgbToHex.apply(null, [
+        parseInt(nodes[0].value, 10),
+        parseInt(nodes[2].value, 10),
+        parseInt(nodes[4].value, 10),
+      ]).toUpperCase()
+      return false
+    }
+  }).toString()
 }
