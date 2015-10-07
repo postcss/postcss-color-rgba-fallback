@@ -1,6 +1,6 @@
 {
   "name": "postcss-color-rgba-fallback",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "PostCSS plugin to transform rgba() to hexadecimal",
   "keywords": [
     "css",
@@ -21,8 +21,8 @@
     "index.js"
   ],
   "dependencies": {
-    "color-string": "^0.3.0",
-    "postcss": "^5.0.0"
+    "postcss": "^5.0.0",
+    "postcss-value-parser": "^3.0.2"
   },
   "devDependencies": {
     "css-whitespace": "^1.1.0",

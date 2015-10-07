@@ -40,7 +40,7 @@ you will get:
 
 ```css
 body {
-  background: #99DD99;
+  background: #99dd99;
   background: rgba(153, 221, 153, 0.8);
   border: solid 1px #646667;
   border: solid 1px rgba(100,102,103,.3);

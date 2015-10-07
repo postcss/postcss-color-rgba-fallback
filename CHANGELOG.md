@@ -1,3 +1,12 @@
+# 2.1.0 - 2015-10-07
+
+- Added: postcss-value-parser v3.0.2
+- Removed: colorString
+- Removed: `RGBA` regular expression
+- Removed: `transformRgba` function
+- Updated: hexadecimal value is lowercase
+- Updated: tests and documentation
+
 # 2.0.0 - 2015-09-06
 
 - Removed: compatibility with postcss v4.x
