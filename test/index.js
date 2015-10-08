@@ -31,5 +31,9 @@ test("hex", function(t) {
     {
       properties:["box-shadow"],
     })
+  compareFixtures(t, "rgba-oldie-fallback", "should add old IE filters",
+    {
+      oldie: true,
+    })
   t.end()
 })
