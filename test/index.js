@@ -31,6 +31,10 @@ test("hex", function(t) {
     {
       properties:["box-shadow"],
     })
+  compareFixtures(t, "rgba-background-fallback", "should transform background",
+    {
+      backgroundColor:[255,255,255],
+    })
   compareFixtures(t, "rgba-oldie-fallback", "should add old IE filters",
     {
       oldie: true,
