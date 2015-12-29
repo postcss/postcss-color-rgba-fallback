@@ -70,7 +70,7 @@ Allows you to specify your whitelist of properties.
 
 default: `false`
 
-Set to true to enable the option and to get feedback for ie8
+Set to true to enable the option and to get fallback for ie8
 
 Checkout [tests](test) for more examples.
 
