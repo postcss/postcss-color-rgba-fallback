@@ -51,7 +51,8 @@ body {
 
 postcss-color-rgba-fallback accepts option
 
-##### `properties`
+### `properties`
+
 default: `
 [ "background-color",
   "background",
@@ -64,6 +65,12 @@ default: `
 
 Allows you to specify your whitelist of properties.
 **This option enables adding a fallback for one or a properties list**
+
+### `oldie`
+
+default: `false`
+
+Set to true to enable the option and to get feedback for ie8
 
 Checkout [tests](test) for more examples.
 

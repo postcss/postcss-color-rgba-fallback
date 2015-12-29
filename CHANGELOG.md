@@ -1,3 +1,7 @@
+# 2.1.0 - 2015-12-29
+
+- added: fallback option for ie8 
+
 # 2.0.0 - 2015-09-06
 
 - Removed: compatibility with postcss v4.x
