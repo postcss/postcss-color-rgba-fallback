@@ -49,7 +49,22 @@ body {
 
 ## Node.js options
 
-postcss-color-rgba-fallback accepts option
+postcss-color-rgba-fallback accepts options
+
+##### `backgroundColor`
+
+default: null
+
+Allows you to specify a background color to use as a base alpha matte.
+
+Instead of cutting off the alpha channel it will blend the foreground and background.
+
+Expects an array of rgb values:
+
+```js
+  "backgroundColor": [255, 1, 1]
+```
+
 
 ### `properties`
 
