@@ -1,6 +1,10 @@
+# 2.2.0 - 2015-12-30
+
+- added: support for backgroundColor for alpha matte calculation
+
 # 2.1.0 - 2015-12-29
 
-- added: fallback option for ie8 
+- added: fallback option for ie8
 
 # 2.0.0 - 2015-09-06
 

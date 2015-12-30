@@ -51,21 +51,6 @@ body {
 
 postcss-color-rgba-fallback accepts options
 
-##### `backgroundColor`
-
-default: null
-
-Allows you to specify a background color to use as a base alpha matte.
-
-Instead of cutting off the alpha channel it will blend the foreground and background.
-
-Expects an array of rgb values:
-
-```js
-  "backgroundColor": [255, 1, 1]
-```
-
-
 ### `properties`
 
 default: `
@@ -86,6 +71,20 @@ Allows you to specify your whitelist of properties.
 default: `false`
 
 Set to true to enable the option and to get fallback for ie8
+
+### `backgroundColor`
+
+default: `null`
+
+Allows you to specify a background color to use as a base alpha matte.
+
+Instead of cutting off the alpha channel it will blend the foreground and background.
+
+Expects an array of rgb values:
+
+```js
+  "backgroundColor": [255, 1, 1]
+```
 
 Checkout [tests](test) for more examples.
 
