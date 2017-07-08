@@ -1,3 +1,9 @@
+# 3.0.0 - 2017-07-08
+
+- Updated postcss v6.x
+- Updated dependencies
+- droped old nodejs version
+
 # 2.2.0 - 2015-12-30
 
 - added: support for backgroundColor for alpha matte calculation
