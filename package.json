@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "css-whitespace": "^1.1.0",
-    "eslint": "^1.10.3",
+    "eslint": "^6.6.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.7.0"
   },
