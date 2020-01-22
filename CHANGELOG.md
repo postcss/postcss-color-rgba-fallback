@@ -1,3 +1,9 @@
+# 4.0.0 - 2019-01-22
+
+- Updated postcss v7.x
+- Updated dependencies
+- droped old nodejs version
+
 # 3.0.0 - 2017-07-08
 
 - Updated postcss v6.x

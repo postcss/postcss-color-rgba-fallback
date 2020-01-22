@@ -40,8 +40,7 @@ function calculateRGB(backgroundColor, foregroundColor) {
 /**
  * PostCSS plugin to transform rgba() to hexadecimal
  */
-module.exports = postcss.plugin("postcss-color-rgba-fallback",
-function(options) {
+module.exports = postcss.plugin("postcss-color-rgba-fallback", function(options) {
   options = options || {}
 
   var properties = options.properties || [
