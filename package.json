@@ -21,15 +21,18 @@
     "index.js"
   ],
   "dependencies": {
-    "postcss": "^7.0.17",
-    "postcss-value-parser": "^4.0.2",
+    "postcss-value-parser": "^4.1.0",
     "rgb-hex": "^3.0.0"
   },
   "devDependencies": {
     "css-whitespace": "^1.1.0",
-    "eslint": "^6.8.0",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.7.0"
+    "eslint": "^7.26.0",
+    "postcss": "^8.0.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^5.2.2"
+  },
+  "peerDependencies": {
+    "postcss": "^8.0.0"
   },
   "scripts": {
     "lint": "eslint . --ignore-path .gitignore",
