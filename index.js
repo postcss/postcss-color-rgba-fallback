@@ -66,76 +66,73 @@ module.exports = function(options = {}) {
 
   return {
     postcssPlugin: "postcss-color-rgba-fallback",
-    Once(root, {decl}) {
-      root.walkDecls(function(declaration) {
-        if (!declaration.value ||
-          declaration.value.indexOf("rgba") === -1 ||
-            properties.indexOf(declaration.prop) === -1
-        ) {
-          return
-        }
-  
-        // if previous prop equals current prop
-        // no need fallback
-        if (
-          declaration.prev() &&
-          declaration.prev().prop === declaration.prop
-        ) {
-          return
-        }
-  
-        let hex
-        let alpha
-        let RGB
-        const value = valueParser(declaration.value).walk(function(node) {
-          const nodes = node.nodes
-          if (node.type === "function" && node.value === "rgba") {
-            try {
-              alpha = parseFloat(nodes[6].value)
-              RGB = calculateRGB(backgroundColor, [
-                parseInt(nodes[0].value, 10),
-                parseInt(nodes[2].value, 10),
-                parseInt(nodes[4].value, 10),
-                alpha,
-              ])
-              hex = rgbToHex.apply(null, RGB)
-              node.type = "word"
-              node.value = "#" + hex
-            }
-            catch (e) {
-              return false
-            }
+    Declaration(declaration, {decl}) {
+      if (!declaration.value ||
+        declaration.value.indexOf("rgba") === -1 ||
+          properties.indexOf(declaration.prop) === -1
+      ) {
+        return
+      }
+
+      // if previous prop equals current prop
+      // no need fallback
+      if (
+        declaration.prev() &&
+        declaration.prev().prop === declaration.prop
+      ) {
+        return
+      }
+
+      let hex
+      let alpha
+      const value = valueParser(declaration.value).walk(function(node) {
+        const nodes = node.nodes
+        if (node.type === "function" && node.value === "rgba") {
+          try {
+            alpha = parseFloat(nodes[6].value)
+            const RGB = calculateRGB(backgroundColor, [
+              parseInt(nodes[0].value, 10),
+              parseInt(nodes[2].value, 10),
+              parseInt(nodes[4].value, 10),
+              alpha,
+            ])
+            hex = rgbToHex.apply(null, RGB)
+            node.type = "word"
+            node.value = "#" + hex
+          }
+          catch (e) {
             return false
           }
-        }).toString()
-  
-        if (value !== declaration.value) {
-          declaration.cloneBefore({value: value})
-  
-          if (
-            oldie && oldie.indexOf(declaration.prop) !== -1 &&
-            0 < alpha && alpha < 1
-          ) {
-            hex = "#" + Math.round(alpha * 255).toString(16) + hex
-            const ieFilter = [
-              "progid:DXImageTransform.Microsoft.gradient(startColorStr=",
-              hex,
-              ",endColorStr=",
-              hex,
-              ")",
-            ].join("")
-            const gteIE8 = decl({
-              prop: "-ms-filter", value: "\"" + ieFilter + "\"",
-            })
-            const ltIE8 = decl({
-              prop: "filter", value: ieFilter,
-            })
-  
-            declaration.parent.insertBefore(declaration, gteIE8)
-            declaration.parent.insertBefore(declaration, ltIE8)
-          }
+          return false
         }
-      })
+      }).toString()
+
+      if (value !== declaration.value) {
+        declaration.cloneBefore({value: value})
+
+        if (
+          oldie && oldie.indexOf(declaration.prop) !== -1 &&
+          0 < alpha && alpha < 1
+        ) {
+          hex = "#" + Math.round(alpha * 255).toString(16) + hex
+          const ieFilter = [
+            "progid:DXImageTransform.Microsoft.gradient(startColorStr=",
+            hex,
+            ",endColorStr=",
+            hex,
+            ")",
+          ].join("")
+          const gteIE8 = decl({
+            prop: "-ms-filter", value: "\"" + ieFilter + "\"",
+          })
+          const ltIE8 = decl({
+            prop: "filter", value: ieFilter,
+          })
+
+          declaration.parent.insertBefore(declaration, gteIE8)
+          declaration.parent.insertBefore(declaration, ltIE8)
+        }
+      }
     },
   }
 }
