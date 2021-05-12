@@ -21,7 +21,7 @@
     "index.js"
   ],
   "dependencies": {
-    "postcss": "^7.0.17",
+    "postcss": "^8.2.10",
     "postcss-value-parser": "^4.0.2",
     "rgb-hex": "^3.0.0"
   },
